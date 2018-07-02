@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="node_modules/vue/dist/vue.js"></script>
+	<script src="node_modules/axios/dist/axios.js"></script>
+</head>
+<body>
+	<div id="app">
+		<a href="javascript:;" @click="get">get</a>
+		<a href="javascript:;" @click="post">post</a>
+		<a href="javascript:;" @click="http">http</a>
+		<p>{{msg}}</p>
+	</div>
+	<script>
+		new Vue({
+				  el: '#app',
+				  data: {
+				    msg: ''
+				  },
+				  mounted:function(){
+				  	axios.interceptors.request.use(function(config){
+				  		console.log();
+				  		return config;
+				  	});
+				  	axios.interceptors.response.use(function(response){
+				  		return response;
+				  	});
+				  },				  
+				  methods:{
+				  	get:function(){
+				  		axios.get("package.json",{
+				  			params:{
+				  				userId:"11"
+				  			},
+				  			headers:{
+				  				token:"aa"
+				  			}
+				  		}).then(res=>{
+				  			this.msg=res.data
+				  		}).catch(error=>{
+				  			this.msg=error
+				  		});
+				  	},
+				  	post:function(){
+				  		axios.post("package.json",{
+				  			userId:"11"
+				  		},{
+				  			headers:{
+				  				token:"aa"
+				  			}
+				  		}).then(res=>{
+
+				  		}).catch();
+				  	},
+				  	http:function(){
+				  		axios.http({
+				  			url:"",
+				  			method:"get",
+				  			data:{
+
+				  			},
+				  			headers:{
+
+				  			}
+				  		}).then().catch();
+				  	}
+				  }
+				})
+	</script>
+</body>
+</html>
